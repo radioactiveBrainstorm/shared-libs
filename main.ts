@@ -4,6 +4,10 @@ namespace radioactiveBrainstorm {
         UP = 1
     }
 
+    // TODO - icon not showing
+    // expand mode fails to work properly
+    // Toggle logging
+
     /**
     * Move motor until it stalls
     * @param direction DOWN or UP
@@ -12,12 +16,13 @@ namespace radioactiveBrainstorm {
     * @param initial time to run motor; eg: 100
     */
     //% blockId=move_until_stall
-    //% block="Move %motor | in direction %direction until stall || at power %power | using increment %increment | with initial time %startOffset"
+    //% block="Move %motor | in direction %direction until stall | at power %power | using increment %increment | with initial time %startOffset"
+    //% inlineInputMode=inline
     //% color=190 weight=100 icon="\f0e2"
-    //% increment.defl=10 startOffset.defl=100 power.min=1 power.max=100 power.defl=20
-    //% expandableArgumentMode="disable"
+    //% motor.defl=motors.mediumA direction.defl=Direction.DOWN increment.defl=10 startOffset.defl=100 power.min=1 power.max=100 power.defl=20
+    //% expandableArgumentMode="toggle"
     //% help=functions/move-until-stall
-    export function moveUntilStall(motor: motors.Motor, direction: Direction, power: number = 20, increment: number = 10, startOffset: number = 100): void {
+    export function moveUntilStall(motor: motors.Motor = motors.mediumA, direction: Direction = Direction.DOWN, power: number = 20, increment: number = 10, startOffset: number = 100): void {
         let armPos = 0
         let lastArmPos = 0
         motor.run(direction * power, startOffset, MoveUnit.MilliSeconds)
