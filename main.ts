@@ -4,6 +4,50 @@ namespace radioactiveBrainstorm {
         UP = 1
     }
 
+    let _state: {
+        pos: number,
+        labels: string[],
+        cmds: (() => void)[],
+        running: boolean
+    } = { pos: 0, labels: [], cmds: [], running: false };
+
+    export function setupScreen(label: string, cmd: () => void) {
+        _state.labels.push(label);
+        _state.cmds.push(cmd);
+        renderScreen();
+    }
+
+    function renderScreen() {
+        brick.clearScreen()
+
+        for (let i = 0; i < _state.labels.length; i++) {
+            let selected = _state.pos === i;
+            const label = _state.labels[i];
+            brick.showString(`${selected ? '->' : '  '}${label}`, i + 1)
+        }
+    }
+
+    brick.buttonDown.onEvent(ButtonEvent.Pressed, function () {
+        if (_state.pos + 1 < _state.labels.length) {
+            _state.pos = _state.pos + 1;
+        }
+        renderScreen();
+    })
+
+    brick.buttonUp.onEvent(ButtonEvent.Pressed, function () {
+        if (_state.pos - 1 >= 0) {
+            _state.pos = _state.pos - 1;
+        }
+        renderScreen();
+    })
+
+    brick.buttonEnter.onEvent(ButtonEvent.Pressed, function () {
+        // brick.showImage(image)
+        brick.showImage(images.expressionsMouth2open);
+        _state.cmds[_state.pos]();
+        renderScreen();
+    })
+
     // TODO - icon not showing
     // expand mode fails to work properly
     // Toggle logging
