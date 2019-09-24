@@ -7,11 +7,12 @@
     },
     "files": [
         "README.md",
-        "main.ts"
+        "main.ts",
+        "helpers.ts"
     ],
     "testFiles": [
         "test.ts"
     ],
     "public": false,
-    "installedVersion": "workspace:ead84225-47b4-49a6-2757-b68458c4e62b"
+    "installedVersion": "workspace:8c6c0d9f-7567-462a-2a3e-ac31c0b2baea"
 }
